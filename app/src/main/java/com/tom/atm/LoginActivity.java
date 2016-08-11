@@ -1,5 +1,6 @@
 package com.tom.atm;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EditText edUserid = (EditText) findViewById(R.id.userid);
+        SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
+        edUserid.setText(pref.getString("PREF_USERID", ""));
+
     }
     public void login(View v){
         EditText edUserid = (EditText) findViewById(R.id.userid);
@@ -21,10 +26,14 @@ public class LoginActivity extends AppCompatActivity {
         String uid = edUserid.getText().toString();
         String pw = edPasswd.getText().toString();
         if (uid.equals("jack") && pw.equals("1234")){ //登入成功
+            SharedPreferences pref = getSharedPreferences("atm", MODE_PRIVATE);
+            pref.edit()
+                    .putString("PREF_USERID", uid)
+                    .commit();
             Toast.makeText(this, "登入成功", Toast.LENGTH_LONG).show();
             getIntent().putExtra("LOGIN_USERID", uid);
             getIntent().putExtra("LOGIN_PASSWD", pw);
-            setResult(RESULT_OK);
+            setResult(RESULT_OK, getIntent());
             finish();
         }else{  //登入失敗
             new AlertDialog.Builder(this)
