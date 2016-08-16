@@ -38,10 +38,10 @@ public class FinanceActivity extends AppCompatActivity {
                 .query("exp", null, null, null, null, null, null);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 this,
-                android.R.layout.simple_list_item_2,
+                R.layout.row,
                 c,
-                new String[] {"info", "amount"},
-                new int[] {android.R.id.text1, android.R.id.text2},
+                new String[] {"_id", "cdate", "info", "amount"},
+                new int[] {R.id.item_no, R.id.item_date, R.id.item_info, R.id.item_amount},
                 0
         );
         list.setAdapter(adapter);
