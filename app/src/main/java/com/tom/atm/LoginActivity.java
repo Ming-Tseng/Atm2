@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         String s = "http://j.snpy.org/atm/login?userid=" + uid + "&pw=" + pw;
         new LoginTask().execute(s);
     }
+
     class LoginTask extends AsyncTask<String, Void, Integer>{
 
         @Override
